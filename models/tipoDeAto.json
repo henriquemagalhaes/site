@@ -1,0 +1,12 @@
+{
+    "name": "tipoDeAto",
+    "label": "Tipos de Ato",
+    "format": "{{nome}}",
+    "onlyFor": ["mensario", "admin"],
+    "menu": "Conteúdo",
+    "fields": [
+        { "name": "nome", "label": "Nome", "checks": "hasValue" },
+        { "name": "descricao", "label": "Descrição", "type": "text" }
+    ],
+    "cache": "local"
+}

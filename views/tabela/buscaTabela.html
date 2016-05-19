@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mensário Fiscal</title>
+		<% include ../components/head.html %>
+		
+		<link rel='stylesheet' href='/css/otterCalendar.css' />
+		<link rel='stylesheet' href='/css/searchResults.css' />
+	</head>
+	<body>
+
+		<div data-action='import' data-url='/components/siteTopbar.html'></div>
+		<div data-action='import' data-url='/components/banner.html'></div>
+		<div data-action='import' data-url='/components/newsTopbar.html'></div>
+
+		<div class="container">
+			<div class="spacing-25"></div>
+			<h1>Tabelas vigentes em <%= vigencia.format( '{dd}/{MM}/{yyyy}' ) %></h1>
+
+<% 	if ( tabelas ){ %>
+
+<% 		for ( tipo in tabelas ){ var grupo = tabelas[ tipo ]; %>
+			<h3><%= tipo %></h3>
+			<ul>
+<% 			grupo.forEach( function( tabela ){ %>
+				<li><a href="/tabela/<%= tabela._id %>"><%= tabela.titulo %></a></li>
+<% 			}) %>
+			</ul>
+<% 		} %>
+
+<% 	} else { %>
+			<p>Não existem tabelas vigentes nesta data.</p>
+<% 	} %>
+
+		</div>
+
+		<% include ../components/siteFooter.html %>
+		<% include ../cms/cmsScripts.html %>
+	</body>
+</html>

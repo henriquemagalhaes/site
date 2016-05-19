@@ -1,0 +1,12 @@
+{
+    "name": "setor",
+    "label": "Setores",
+    "format": "{{nome}}",
+    "onlyFor": ["mensario", "admin"],
+    "menu": "Conteúdo",
+    "fields": [
+        { "name": "nome", "label": "Nome", "checks": "hasValue" },
+        { "name": "descricao", "label": "Descrição", "type": "text" }
+    ],
+    "cache": "local"
+}

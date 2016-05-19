@@ -1,0 +1,9 @@
+.list-title {
+	-webkit-box-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+	border-bottom: 0px 1px solid #f7f7f7;
+}
+.content { margin-top: 10px; margin-bottom: 20px; }
+.content .date { margin-bottom: 0px; }
+.content .title { font-size: 25px; font-weight: bold; }
+.close-btn { font-size: 20px; }

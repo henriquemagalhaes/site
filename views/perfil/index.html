@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Perfil</title>
+		<% include ../components/head.html %>
+	</head>
+	<body>
+		<div data-action='import' data-url='/components/siteTopbar.html'></div>
+		
+		<div class="container">
+			<div class="spacing-20"></div>
+			<h2>Manter dados cadastrais</h2>
+			<div id="form-place" class="col-md-8 rounded blue">
+				<form>
+					<div class="spacing-20"></div>
+					<div class="control-group">
+						<label for="nome">Nome</label>
+						<input type="text" id="nome" class="form-control" name="nome" value='<%= assinante.nome ? assinante.nome : '' %>'>
+					</div>
+					<div class="control-group">
+						<label for="fone1">Telefone</label>
+						<input type="tel" id="fone1" class="form-control" name="fone1" value='<%= assinante.fone1 ? assinante.fone1 : '' %>'>
+					</div>
+					<div class="control-group">
+						<label for="email">E-mail</label>
+						<input type="email" id="email" class="form-control" name="email" value='<%= assinante.email ? assinante.email : '' %>'>
+					</div>
+					<div class="control-group">
+						<label for="email2">Segundo e-mail</label>
+						<input type="email" id="email2" class="form-control" name="email2" value='<%= assinante.email2 ? assinante.email2 : '' %>'>
+					</div>
+					<div class="control-group">
+						<label for="email3">Terceiro e-mail</label>
+						<input type="email" id="email3" class="form-control" name="email3" value='<%= assinante.email3 ? assinante.email3 : '' %>'>
+					</div>
+					<div class="control-group">
+						<label for="nomeAC">Pessoa de contato</label>
+						<% console.log( assinante.nomeAc ) %>
+						<input type="text" id="nomeAc" class="form-control" name="nomeAc" value='<%= assinante.nomeAc ? assinante.nomeAc : '' %>'>
+					</div>
+					<div class="checkbox">
+						<label for="news">
+							<input 
+								name="news" 
+								id="news" 
+								type="checkbox" 
+<% if ( assinante.news ){ %>	checked="checked"	<% } %>
+							>
+							Enviar a newsletter e e-mails informativos para o endereço de e-mail cadastrado
+						</label>
+					</div>
+					<a onclick='$.view.update()' class="btn btn-primary">Salvar</a>
+					<div id="response"></div>
+					<div class="spacing-20"></div>
+				</form>
+			</div>
+				
+		</div>
+		<div class="container">
+			<div class="spacing-20"></div>
+			<a onclick='$.view.logout()' class="btn btn-default">Desconectar da sua conta</a>
+		</div>
+		<div class="spacing-20"></div>
+
+		<% include ../components/siteFooter.html %>
+		
+		<% include ../cms/cmsScripts.html %>
+		<script>
+			$.view = {
+				update: function(){
+					$.ajax({
+						url: '/assinante/perfil',
+						type: 'POST',
+						data: {
+							nome: $('#nome').val(),
+							fone1: $('#fone1').val(),
+							email: $('#email').val(),
+							email2: $('#email2').val(),
+							email3: $('#email3').val(),
+							nomeAC: $('#nomeAC').val(),
+							news: $('#news').prop('checked')
+						},
+						success: function( response ){
+							$('#response').html(
+								'<h2>Obrigado!</h2><p>Seus dados foram atualizados.</p>'
+							)
+						},
+						error: function( response ){
+							$('#response').html(
+								'<h2>Erro!</h2><p>Houve um erro ao atualziar os dados.</p>'
+							)	
+						}
+					})
+
+				},
+				logout: function(){
+					$.ajax({
+						url: '/assinante/logout',
+						success: function(){
+							window.location = '/'
+						}
+					})
+				}
+			}
+		</script>
+	</body>
+</html>

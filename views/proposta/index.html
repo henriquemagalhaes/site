@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Proposta de Assinatura</title>
+		<% include ../components/head.html %>
+		<link rel="stylesheet" type="text/css" href="/css/page.css">
+	</head>
+	<body>
+		<div data-action='import' data-url='/components/siteTopbar.html'></div>
+		
+		<div class="container">
+			
+			<div id='content-place'>
+				<div class="col-md-8">
+					
+					<h1>Proposta de assinatura</h1>
+
+<% 	if ( !proposta ){ %>
+					<h2>Não foi encontrada proposta para esta data e pessoa.</h2>
+<% 	} else { %>
+					<p>Esta proposta de assinatura é valida apenas para <%= proposta.nomeProposto %>, até o dia <%= proposta.validade %>.</p>
+
+					<div
+					 class='editable' 
+					 data-model='proposta' 
+					 data-property='descricao' 
+					 data-id='<%= proposta._id %>'>
+						<%- proposta.descricao %>
+					</div>
+
+<% 		if ( proposta.validade < Date.create().addDays( 1 ) ){ %>
+					<h2>Esta proposta expirou dia <%= proposta.validade %>. Entre em contato para receber uma nova proposta.</h2>					
+<% 		} else { %>
+					<p>Estando de acordo com o exposto acima, favor preencher os dados para dar seguimento ao processo de assinatura.</p>
+					
+					<div>
+<!-- começo do form -->
+
+<div class='padded blue rounded'>
+	<div class="spacing-15"></div>
+	<h3>Complete os dados para que a assinatura seja concluída.</h3>
+	<form role='form' class='form-horizontal'>
+		<div class="checkbox">
+			<label for="news">
+				<input name='news' id='news' type="checkbox" checked="checked">
+				Autorizo o Mensário Fiscal a enviar a newsletter e e-mails informativos para o endereço de e-mail cadastrado abaixo.
+			</label>
+		</div>
+		<div class='form-group' id='nome-group'>
+			<label class='col-md-4 control-label' for="nome">Nome</label>
+			<div class="col-md-8">
+				<input class='form-control' type="text" name='nome' id='nome' value='<%= proposta.nomeProposto %>'>
+			</div>
+		</div>
+		<div class='form-group' id='cpfCnpj-group'>
+			<label class='col-md-4 control-label' for="cpfCnpj">CPF / CNPJ</label>
+			<div class="col-md-8">
+				<input class='form-control' type='text' name='cpfCnpj' id='cpfCnpj'>
+			</div>
+		</div>
+		<div class='form-group' id='endereco-group'>
+			<label class='col-md-4 control-label' for="endereco">Endereço</label>
+			<div class="col-md-8">
+				<input class='form-control' type="text" name='endereco' id='endereco'>
+			</div>
+		</div>
+		<div class='form-group' id='cidade-group'>
+			<label class='col-md-4 control-label' for="cidade">Cidade</label>
+			<div class="col-md-8">
+				<input class='form-control' type="text" name='cidade' id='cidade'>
+			</div>
+		</div>
+		<div class='form-group' id='uf-group'>
+			<label class='col-md-4 control-label' for="uf">Estado</label>
+			<div class="col-md-8">
+				<select class='form-control' type="text" name='uf' id='uf'>
+					<option>Selecione o estado</option>
+					<option value='AC'>Acre</option>
+					<option value='AL'>Alagoas</option>
+					<option value='AP'>Amapá</option>
+					<option value='AM'>Amazonas</option>
+					<option value='BA'>Bahia</option>
+					<option value='CE'>Ceará</option>
+					<option value='DF'>Distrito Federal</option>
+					<option value='ES'>Espírito Santo</option>
+					<option value='GO'>Goiás</option>
+					<option value='MA'>Maranhão</option>
+					<option value='MT'>Mato Grosso</option>
+					<option value='MS'>Mato Grosso do Sul</option>
+					<option value='MG'>Minas Gerais</option>
+					<option value='PR'>Paraná</option>
+					<option value='PB'>Paraíba</option>
+					<option value='PA'>Pará</option>
+					<option value='PE'>Pernambuco</option>
+					<option value='PI'>Piauí</option>
+					<option value='RJ'>Rio de Janeiro</option>
+					<option value='RN'>Rio Grande do Norte</option>
+					<option value='RS'>Rio Grande do Sul</option>
+					<option value='RO'>Rondonia</option>
+					<option value='RR'>Roraima</option>
+					<option value='SC'>Santa Catarina</option>
+					<option value='SE'>Sergipe</option>
+					<option value='SP'>São Paulo</option>
+					<option value='TO'>Tocantins</option>
+				</select>
+			</div>
+		</div>
+		<div class='form-group' id='cep-group'>
+			<label class='col-md-4 control-label' for="cep">CEP</label>
+			<div class="col-md-8">
+				<input class='form-control' type="cep" name='cep' id='cep'>
+			</div>
+		</div>
+		<div class='form-group' id='caixa-postal-group'>
+			<label class='col-md-4 control-label' for="caixa-postal">Caixa Postal</label>
+			<div class="col-md-8">
+				<input class='form-control' type="text" name='caixaPostal' id='caixaPostal'>
+			</div>
+		</div>
+		<div class='form-group' id='fone1-group'>
+			<label class='col-md-4 control-label' for="fone1">Telefone principal</label>
+			<div class="col-md-8">
+				<input class='form-control' type="phone" name='fone1' id='fone1'>
+			</div>
+		</div>
+		<div class='form-group' id='fone2-group'>
+			<label class='col-md-4 control-label' for="fone2">Telefone secundário</label>
+			<div class="col-md-8">
+				<input class='form-control' type="phone" name='fone2' id='fone2'>
+			</div>
+		</div>
+		<div class='form-group' id='fax-group'>
+			<label class='col-md-4 control-label' for="fax">Fax</label>
+			<div class="col-md-8">
+				<input class='form-control' type="phone" name='fax' id='fax'>
+			</div>
+		</div>
+		<div class='form-group' id='email-group'>
+			<label class='col-md-4 control-label' for="email">E-mail principal</label>
+			<div class="col-md-8">
+				<input class='form-control' type="email" name='email' id='email'>
+			</div>
+		</div>
+		<div class='form-group' id='email1-group'>
+			<label class='col-md-4 control-label' for="email1">E-mail secundário</label>
+			<div class="col-md-8">
+				<input class='form-control' type="email" name='email1' id='email1'>
+			</div>
+		</div>
+		<div class='form-group' id='email2-group'>
+			<label class='col-md-4 control-label' for="email2">E-mail alternativo</label>
+			<div class="col-md-8">
+				<input class='form-control' type="email" name='email2' id='email2'>
+			</div>
+		</div>
+		<div class='form-group' id='nomeAc-group'>
+			<label class='col-md-4 control-label' for="nomeAc">Nome (aos cuidados)</label>
+			<div class="col-md-8">
+				<input class='form-control' type='text' name='nomeAc' id='nomeAc'>
+			</div>
+		</div>
+		<div class='form-group' id='nomeCob-group'>
+			<label class='col-md-4 control-label' for="nomeCob">Nome (para cobrança)</label>
+			<div class="col-md-8">
+				<input class='form-control' type='text' name='nomeCob' id='nomeCob'>
+			</div>
+		</div>
+		<div class='form-group' id='enderecoCob-group'>
+			<label class='col-md-4 control-label' for="enderecoCob">Endereço para Cobrança</label>
+			<div class="col-md-8">
+				<input class='form-control' type="text" name='enderecoCob' id='enderecoCob'>
+			</div>
+		</div>
+		<div class='form-group' id='cidadeCob-group'>
+			<label class='col-md-4 control-label' for="cidadeCob">Cidade para Cobrança</label>
+			<div class="col-md-8">
+				<input class='form-control' type="text" name='cidadeCob' id='cidadeCob'>
+			</div>
+		</div>
+		<div class='form-group' id='ufCob-group'>
+			<label class='col-md-4 control-label' for="ufCob">Estado para Cobrança</label>
+			<div class="col-md-8">
+				<select class='form-control' type="text" name='ufCob' id='ufCob'>
+					<option>Selecione o estado</option>
+					<option value='AC'>Acre</option>
+					<option value='AL'>Alagoas</option>
+					<option value='AP'>Amapá</option>
+					<option value='AM'>Amazonas</option>
+					<option value='BA'>Bahia</option>
+					<option value='CE'>Ceará</option>
+					<option value='DF'>Distrito Federal</option>
+					<option value='ES'>Espírito Santo</option>
+					<option value='GO'>Goiás</option>
+					<option value='MA'>Maranhão</option>
+					<option value='MT'>Mato Grosso</option>
+					<option value='MS'>Mato Grosso do Sul</option>
+					<option value='MG'>Minas Gerais</option>
+					<option value='PR'>Paraná</option>
+					<option value='PB'>Paraíba</option>
+					<option value='PA'>Pará</option>
+					<option value='PE'>Pernambuco</option>
+					<option value='PI'>Piauí</option>
+					<option value='RJ'>Rio de Janeiro</option>
+					<option value='RN'>Rio Grande do Norte</option>
+					<option value='RS'>Rio Grande do Sul</option>
+					<option value='RO'>Rondonia</option>
+					<option value='RR'>Roraima</option>
+					<option value='SC'>Santa Catarina</option>
+					<option value='SE'>Sergipe</option>
+					<option value='SP'>São Paulo</option>
+					<option value='TO'>Tocantins</option>
+				</select>
+			</div>
+		</div>
+		<div class='form-group' id='cepCob-group'>
+			<label class='col-md-4 control-label' for="cepCob">CEP para Cobrança</label>
+			<div class="col-md-8">
+				<input class='form-control' type="text" name='cepCob' id='cepCob'>
+			</div>
+		</div>
+
+
+
+
+		<div class="form-group">
+			<div class="col-md-12">
+				<a id='save-btn' type="submit" class="pull-right btn btn-primary">Enviar</a>
+			</div>
+		</div>
+		<div id="response"></div>
+		<div class="spacing-15"></div>
+	</form>
+</div>
+<script type='text/javascript'>
+	$('#save-btn').click( function(){
+		var pessoa = {}
+
+		pessoa.estado       = "Aceita"
+		pessoa.nome         = $("#nome"       ).val()
+		pessoa.cpfCnpj      = $("#cpfCnpj"    ).val()
+		pessoa.endereco     = $("#endereco"   ).val()
+		pessoa.cidade       = $("#cidade"     ).val()
+		pessoa.uf           = $("#uf"         ).val()
+		pessoa.cep          = $("#cep"        ).val()
+		pessoa.caixaPostal  = $("#caixaPostal").val()
+		pessoa.fone1        = $("#fone1"      ).val()
+		pessoa.fone2        = $("#fone2"      ).val()
+		pessoa.fax          = $("#fax"        ).val()
+		pessoa.email        = $("#email"      ).val()
+		pessoa.email2       = $("#email2"     ).val()
+		pessoa.email3       = $("#email3"     ).val()
+		pessoa.nomeAc       = $("#nomeAc"     ).val()
+		pessoa.nomeCob      = $("#nomeCob"    ).val()
+		pessoa.enderecoCob  = $("#enderecoCob").val()
+		pessoa.cidadeCob    = $("#cidadeCob"  ).val()
+		pessoa.ufCob        = $("#ufCob"      ).val()
+		pessoa.cepCob       = $("#cepCob"     ).val()
+		
+		$.ajax({
+			url: '/proposta/<%= proposta._id %>',
+			type: 'POST',
+			data: pessoa,
+			success: function(){
+				$('#response').html(
+					'<h2>Obrigado!</h2><p>Nossa equipe entrará em contato para ativar sua conta.</p>'
+				)
+				alert( 'Nossa equipe entrará em contato para ativar sua conta.' )
+			},
+			error: function( errs ){
+				$('#response').html(
+					'<h2>Ops</h2><p>Não foi possível completar a requisição.</p>'
+				)
+				alert( 'Não foi possível completar a requisição.' )
+				var errors = errs.responseJSON
+				if ( errors.isArray() ){
+					errors.forEach( function(err){
+						$( '#'+err.field+'-group' ).addClass( 'has-warning' )
+					})
+				}
+			}
+		})
+	})
+</script>
+
+
+<!-- fim do form -->
+					</div>
+<% 		} %>		
+<% 	} %>
+				</div>
+			</div>
+		</div>
+
+		<div class="spacing-30"></div>
+
+		<% include ../components/siteFooter.html %> 
+
+		<% include ../cms/cmsScripts.html %>
+	</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<title><%= titulo %></title>
+		<% include ../../components/head.html %>
+		<link rel="stylesheet" type="text/css" href="/css/page.css">
+	</head>
+	<body>
+		<div data-action='import' data-url='/components/siteTopbar.html'></div>
+		<div data-action='import' data-url='/components/banner.html'></div>
+		<div data-action='import' data-url='/components/newsTopbar.html'></div>
+		
+		<div class="section">	
+			<div class="container">
+				
+				<div id='content-place'>
+					<div id='cms-save-btn-place'></div>
+					<h1 class='editable' data-model='pagina' data-property='titulo' data-id='<%= _id %>'>
+						<%= titulo %>
+					</h1>
+					<div class='editable' data-model='pagina' data-property='corpo' data-id='<%= _id %>'>
+						<%- corpo %>
+					</div>
+				</div>
+
+				<div id="search-place" class="col-md-9"></div>
+
+			</div>
+		</div>
+
+		<% include ../../components/siteFooter.html %>
+
+		<% include ../../cms/cmsScripts.html %>
+	</body>
+</html>

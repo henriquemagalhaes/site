@@ -1,0 +1,31 @@
+<div id='sidebar'>
+	<ul>
+		<li class='animated clicable'>Obrigações</li>
+		<li class='animated clicable'>Suas Questões</li>
+		<li class='animated clicable'>Informes Econômicos</li>
+		<li class='animated clicable'>Manuais</li>
+		<li class='animated clicable'>Códigos</li>
+		<li class='animated clicable'>Normas</li>
+		<li class='animated clicable'>Regulamentos</li>
+		<li class='animated clicable'>Tabelas</li>
+		<li class='animated clicable'>Diversos</li>
+	</ul>
+
+</div>
+
+<script type="text/javascript">
+	var theBody = $('body')
+	  , sticky  = false
+	
+	$( window ).scroll( function(){
+		if ( theBody.scrollTop() > 370  && !sticky ){
+			$('#sidebar').addClass('sticky')
+			sticky = true
+		}
+
+		if ( theBody.scrollTop() < 370  && sticky ){
+			$('#sidebar').removeClass('sticky')
+			sticky = false
+		}
+	})
+</script>

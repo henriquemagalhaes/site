@@ -1,0 +1,70 @@
+.calendar {
+	font-family: Tahoma;
+	font-size: 12px;
+	padding-bottom: 5px;
+    min-height: 245px;
+    width: 285px;
+}
+
+.otter-cal-topbar {
+	display:table;
+	width: 100%;
+	border-bottom: 2px solid;
+}
+
+.otter-cal-header {
+	font-weight: bold;  
+}
+
+.otter-cal-row {
+	display:table;
+	padding-left: 19px;
+}
+
+.otter-cal-cell {
+	float:left;
+	width: 35px;
+	height: 28px;
+	text-align: center;
+	cursor: default;
+	padding-top:7px;
+}
+
+.today {
+	border: 1px solid #444 !important;
+	padding-top: 6px;
+}
+
+.otter-cal-btn {
+	float: left;
+	padding-top: 10px;
+	padding-right: 15px;
+}
+
+.otter-cal-title {
+	float: left;
+	font-family: "News Cycle", "Arial Narrow Bold", sans-serif;
+	font-weight: 100;
+	font-size: 20px;
+	padding-left: 6px;
+	margin-bottom: 0px;
+	margin-top: 6px;
+}
+
+.otter-cal-evt-list {
+	display: none;
+}
+
+.otter-cal-cell-busy {
+	background-color: #ccc;
+	color: #333;
+	padding-top: 6px;
+	cursor: pointer;
+}
+
+.otter-cal-details {
+	display: none;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}

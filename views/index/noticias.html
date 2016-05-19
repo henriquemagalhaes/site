@@ -1,0 +1,85 @@
+<div id='list-wrapper' class='section'>
+	<div class="container">
+		
+		<div id="content-place">
+			
+			<div id='list-place' class='col-md-9'>
+				
+				<div class="row">
+					<div id="hello-place" class="col-md-7">
+						<div data-action='import' data-url="/components/general/hello.html"></div>
+					</div>
+					<div id="calendar-place" class="col-md-5">
+						<div class='calendar' data-url='/components/obrigacoes.json'></div>
+					</div>
+				</div>
+
+				<div class='list-title'><h1><%= listTitle %></h1></div>
+
+				<% noticias.forEach( function( noticia, idx ){ %>
+				
+				<%     if( idx.isEven() ){ %>
+				<div class="row">
+					<div class='content col-md-6'>
+						<div class='date'><%= Date.create(noticia.dataPublicacao).format('{dd}/{MM}/{yyyy}') %>
+				<% if ( noticia.tags ) { noticia.tags.forEach( function( tag ){ %>
+						<div class='label label-primary tag'><%= tag %></div>
+				<% }) } %>
+					</div>
+						<a class='title' href='/noticia/<%= noticia._id %>'><%= noticia.titulo %></a>
+						<p class='short-text'><%- noticia.resumo %></p>
+					</div>
+				<%     } %>
+				
+				<%     if( idx.isOdd() ){ %>
+					<div class='content col-md-6'>		
+						<div class='date'><%= Date.create(noticia.dataPublicacao).format('{dd}/{MM}/{yyyy}') %>
+				<% if ( noticia.tags ) { noticia.tags.forEach( function( tag ){ %>
+						<div class='label label-primary tag'><%= tag %></div>
+				<% }) } %>
+					</div>
+						<a class='title' href='/noticia/<%= noticia._id %>'><%= noticia.titulo %></a>
+						<p class='short-text'><%- noticia.resumo %></p>
+					</div>
+				</div>
+				<%     } %>
+
+				<% }) %>
+
+				<div id="list-footer" class='pull-right'>
+					<a href="/noticias/pagina/1">Próxima página ></a>
+				</div>
+
+			</div>
+			
+			<div id="left-column" class='col-md-3'>
+				
+				<div id='feature-place' class='dark rounded'>
+
+					<div id='feature-title'><h2>Destaques</h2></div>
+
+					<% destaques.forEach( function( destaque ){ %>
+					<div class='content'>
+						<p class='date'><%= Date.create(destaque.dataPublicacao).format('{dd}/{MM}/{yyyy}') %></p>
+						<a class='title' href='/noticia/<%= destaque._id %>'><%= destaque.titulo %></a>
+						<p class='short-text'><%- destaque.resumo %></p>
+					</div>
+					<% }) %>
+
+				</div>
+
+				<div class="spacing-20"></div>
+				<div id="indicadores" class='rounded padded blue'>
+					<div data-action='import' data-url="/components/general/indicadores.html"></div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<div id="search-place" class='col-md-9'></div>
+	</div>
+
+</div>
+
+<link rel='stylesheet' href='/css/list.css' />

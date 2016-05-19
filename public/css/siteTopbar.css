@@ -1,0 +1,23 @@
+#site-top-logo {
+	border-left: 10px solid #fff;
+	border-right: 10px solid #fff;
+
+	-moz-box-shadow:    3px 0px 20px 0px #737373;
+	-webkit-box-shadow: 3px 0px 20px 0px #737373;
+	box-shadow:         3px 0px 20px 0px #737373;
+
+	float: left;
+}
+
+#site-topbar {
+	background-image: linear-gradient(to bottom, #e7e7e7, #fff);
+	background-repeat-x: repeat;
+	background-repeat-y: no-repeat;
+}
+#site-topbar .login-form { width: 150px; float: right; }
+
+#site-top-menu { float: right; margin-top: 10px; }
+#site-top-menu nav { padding-top: 22px; float: left; }
+#site-top-menu #sobre-nos { margin-bottom: 0px; }
+
+#site-topbar-pwd-field, #site-topbar-login-btn { margin-top: 3px; }

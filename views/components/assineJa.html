@@ -1,0 +1,125 @@
+<div class='col-md-4 blue rounded'>
+	<div class="spacing-15"></div>
+	<h3>Cadastre-se como visitante para receber uma senha cortesia e uma proposta de assinatura.</h3>
+	<form role='form'>
+		<div class="checkbox">
+			<label for="news">
+				<input name='news' id='news' type="checkbox" value='true' checked="checked">
+				Autorizo o Mensário Fiscal a enviar a newsletter e e-mails informativos para o endereço de e-mail cadastrado abaixo.
+			</label>
+		</div>
+		<div class='form-group' id='nome-group'>
+			<label class='control-label' for="nome">Nome</label>
+			<input class='form-control' type="text" name='nome' id='nome'>
+		</div>
+		<div class='form-group' id='email-group'>
+			<label class='control-label' for="email">e-mail</label>
+			<input class='form-control' type="email" name='email' id='email'>
+		</div>
+		<div class='form-group' id='pwdHash-group'>
+			<label class='control-label' for="senha">Senha</label>
+			<input class='form-control' type="text" name='senha' placeholder='Senha' id='pwdHash'>
+			<div class="spacing-10"></div>
+			<input class='form-control' type="text" name='senhaAgain' placeholder='Confirme a senha' id='pwdHashAgain'>
+		</div>
+		<div class='form-group' id='atividade-group'>
+			<label class='control-label' for="atividade">Ramo de atividade</label>
+			<input class='form-control' type="text" name='atividade' id='atividade'>
+		</div>
+		<div class='form-group' id='cidade-group'>
+			<label class='control-label' for="cidade">Cidade</label>
+			<input class='form-control' type="text" name='cidade' id='cidade'>
+		</div>
+		<div class='form-group' id='uf-group'>
+			<label class='control-label' for="uf">Estado</label>
+			<select class='form-control' type="text" name='uf' id='uf'>
+				<option>Selecione o estado</option>
+				<option value='AC'>Acre</option>
+				<option value='AL'>Alagoas</option>
+				<option value='AP'>Amapá</option>
+				<option value='AM'>Amazonas</option>
+				<option value='BA'>Bahia</option>
+				<option value='CE'>Ceará</option>
+				<option value='DF'>Distrito Federal</option>
+				<option value='ES'>Espírito Santo</option>
+				<option value='GO'>Goiás</option>
+				<option value='MA'>Maranhão</option>
+				<option value='MT'>Mato Grosso</option>
+				<option value='MS'>Mato Grosso do Sul</option>
+				<option value='MG'>Minas Gerais</option>
+				<option value='PR'>Paraná</option>
+				<option value='PB'>Paraíba</option>
+				<option value='PA'>Pará</option>
+				<option value='PE'>Pernambuco</option>
+				<option value='PI'>Piauí</option>
+				<option value='RJ'>Rio de Janeiro</option>
+				<option value='RN'>Rio Grande do Norte</option>
+				<option value='RS'>Rio Grande do Sul</option>
+				<option value='RO'>Rondonia</option>
+				<option value='RR'>Roraima</option>
+				<option value='SC'>Santa Catarina</option>
+				<option value='SE'>Sergipe</option>
+				<option value='SP'>São Paulo</option>
+				<option value='TO'>Tocantins</option>
+			</select>
+		</div>
+		<div class='form-group' id='fone1-group'>
+			<label class='control-label' for="fone1">Telefone</label>
+			<input class='form-control' type='tel' pattern='[\(]\d{2}[\)]\d{4}[\-]\d{4}' name='fone1' id='fone1'>
+		</div>
+		<div class='form-group' id='contato-group'>
+			<label class='control-label' for="contato">Pessoa de contato</label>
+			<input class='form-control' type="text" name='contato' id='contato'>
+		</div>
+		<div class="form-group">
+			<a id='save-btn' type="submit" class="btn btn-primary">Enviar</a>
+		</div>
+		<div id="response"></div>
+		<div class="spacing-15"></div>
+	</form>
+</div>
+<script type='text/javascript'>
+	$('#save-btn').click( function(){
+		var visitante = {}
+		  , pwdHashAgain = $('#pwdHashAgain').val()
+
+		visitante.news = $('#news').val()
+		visitante.nome = $('#nome').val()
+		visitante.email = $('#email').val()
+		visitante.pwdHash = $('#pwdHash').val()
+		visitante.atividade = $('#atividade').val()
+		visitante.cidade = $('#cidade').val()
+		visitante.estado = $('#uf').val()
+		visitante.fone1 = $('#fone1').val()
+		visitante.contato = $('#contato').val()
+
+
+		if ( visitante.pwdHash !== pwdHashAgain ){
+			$('#response').html(
+				'<h2>Ops</h2><p>Informe o mesmo valor nos dois campos de senha.</p>'
+			)
+		} else {
+			$.ajax({
+				url: '/visitante',
+				type: 'POST',
+				data: visitante,
+				success: function(){
+					$('#message').html(
+						'<h2>Obrigado!</h2><p>Nossa equipe entrará em contato para ativar sua conta de visitante.</p>'
+					)
+				},
+				error: function( errs ){
+					$('#message').html(
+						'<h2>Ops</h2><p>Não foi possível completar a requisição</p>'
+					)
+					var errors = errs.responseJSON
+					if ( errors.isArray() ){
+						errors.forEach( function(err){
+							$( '#'+err.field+'-group' ).addClass( 'has-warning' )
+						})
+					}
+				}
+			})
+		}
+	})
+</script>

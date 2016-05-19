@@ -1,0 +1,46 @@
+<div class="section">
+	
+	<div class='container'>
+		
+		<div id="content-place">
+			
+			<div id='cms-save-btn-place' class='pull-right'></div>
+	
+			<div class='date'><%= tabela.dataPublicacao %></div>
+	
+			<div class='title'>
+				<h2 
+					class='editable' 
+					data-model='tabela' 
+					data-property='titulo' 
+					data-id='<%= tabela._id %>'><%= tabela.titulo %>
+				</h2>
+			</div>
+	
+			<p 
+				class='short-text editable' 
+				data-model='tabela' 
+				data-property='resumo' 
+				data-id='<%= tabela._id %>'><%- tabela.resumo %>
+			</p>
+
+	<% if (assinante){ %>
+			<div 
+				class='body editable' 
+				data-model='tabela'
+				data-property='corpo'
+				data-id='<%= tabela._id %>'><%- tabela.corpo %>
+			</div>
+	<% } else { %>
+			<div class='spacing-30'></div>
+			<% include ../components/pleaseLogin.html %>
+	<% } %>
+		</div>
+	
+		<div id='search-place' class='col-md-9'></div>
+
+	</div>
+
+</div>
+
+<link rel='stylesheet' href='/css/content.css' />

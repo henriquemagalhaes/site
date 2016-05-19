@@ -1,0 +1,32 @@
+#tree {
+	font-size: 14px;
+	background-color: white;
+	border: 1px solid gray;
+	overflow:scroll; 
+	height:750px;"
+}
+
+#tree ul {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-left: 20px;
+	list-style: none;
+	padding-left: 11px;
+ 	border-left: 1px dashed #333;
+}
+
+#tree li {
+	margin-top: 5px;
+	margin-bottom: 5px;	
+ 	text-indent: -10px;
+}
+
+#tree li i {
+	margin-right: 5px;
+	margin-left: 10px;
+	font-size: 16px;
+}
+
+#tree a:link, #tree a:hover, #tree a:visited {
+	text-decoration:none;
+}

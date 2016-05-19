@@ -1,0 +1,60 @@
+<div id="chat">
+	
+	<script>
+		$.chat.user = <%- JSON.stringify( user ) %>
+	</script>
+
+	<style>
+		#chat {
+			position: fixed;
+			right: 0px;
+			bottom: 0px;
+			height: 400px;
+			width: 350px;	
+			background-color: white;
+			border: solid #aaaaaa 2px;
+		}
+		#chat.chatting #chat-form { display: none; }
+		#chat.chatting #chat-room { display: block; }
+		#chat-room { display: none; }
+		#chat-messages { width: 100%; height: 350px; padding: 2px; overflow-y: scroll; }
+		#chat-messages small { text-align: right; width: 100%; float: right; }
+		.chat-message { 
+			background-color: #66A3FF;
+			padding-right: 10px;
+			padding-left: 5px;
+			margin-top: 10px;
+			margin-right: 10px;
+		}
+		.chat-message.your-own { 
+			background-color: #80E6B2;
+			margin-left: 10px;
+			margin-right: 0px;
+		}
+		.same-author { border-top: dashed #EEEEEE 1px; }
+		.same-author small { display: none; }
+		.chat-message.same-author { margin-top: 0px; }
+		#chat-new-message { height: 46px; width: 270px; }
+		#chat-send-link { height: 46px; width: 65px; }
+
+	</style>
+
+	<div id="chat-form">
+		<h3>Assunto</h3>
+		<select name="chat-subject" id="chat-subject" load-from="assunto" onchange="$.chat.requestRoom()">
+			<option>Selecione um assunto</option>
+<%	subjects.forEach( function( subject ){ %>
+			<option value="<%= subject._id %>"><%= subject.desc %></option>
+<%	}) %>
+		</select>
+	</div>
+
+	<div id="chat-room">
+		<div id="chat-messages"></div>
+		<textarea id="chat-new-message"></textarea>
+		<a id="chat-send-link" class="btn btn-link" onclick="$.chat.sendNewMessage()">Enviar</a>
+	</div>
+
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	
+</div>

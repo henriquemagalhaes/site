@@ -1,0 +1,61 @@
+<div class="section">
+	
+	<div class='container'>
+		
+		<div id="content-place">
+
+		
+			<div class='col-md-8'>
+	
+				<div id='cms-save-btn-place' class='pull-right'></div>
+	
+				<div class='date'><%= noticia.dataPublicacao %></div>
+	<% if ( noticia.tags ) { noticia.tags.forEach( function( tag ){ %>
+				<div class='label label-primary tag'><%= tag %></div>
+	<% }) } %>
+				<div class='title'>
+					<h2 
+						class='editable' 
+						data-model='noticia' 
+						data-property='titulo' 
+						data-id='<%= noticia._id %>'><%= noticia.titulo %>
+					</h2>
+				</div>
+				<p 
+					class='short-text editable' 
+					data-model='noticia' 
+					data-property='resumo' 
+					data-id='<%= noticia._id %>'><%- noticia.resumo %>
+				</p>
+	<% if (assinante){ %>
+				<div 
+					class='body editable' 
+					data-model='noticia'
+					data-property='corpo'
+					data-id='<%= noticia._id %>'><%- noticia.corpo %>
+				</div>
+	<% } else { %>
+				<div class='spacing-30'></div>
+				<% include ../components/pleaseLogin.html %>
+	<% } %>
+			</div>
+			
+			<div id='more-content' class='col-md-4'>
+
+				<h3>Mais notícias:</h3>
+				<ul>
+	<% if (noticia.maisNoticias) { noticia.maisNoticias.forEach( function( noticia ){ %>
+					<li><a href="/noticia/<%= noticia._id %>"><%= noticia.titulo %></a></li>
+	<% }) } %>
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div id='search-place' class='col-md-9'></div>
+	</div>
+
+</div>
+
+<link rel='stylesheet' href='/css/content.css' />

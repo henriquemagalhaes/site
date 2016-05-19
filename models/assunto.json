@@ -1,0 +1,12 @@
+{
+    "name": "assunto",
+    "label": "Assuntos",
+    "format": "{{nome}}",
+    "onlyFor": ["admin", "landlord"],
+    "menu": "Conteúdo",
+    "fields": [
+        { "name": "nome", "label": "Nome", "checks": "hasValue" },
+        { "name": "descricao", "label": "Descrição", "type": "text" }
+    ],
+    "cache": "local"
+}

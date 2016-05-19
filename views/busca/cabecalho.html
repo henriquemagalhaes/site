@@ -1,0 +1,15 @@
+<% if ( cabecalho ){ %>
+	
+	<div 
+		class='body editable' 
+		data-model='cabecalho'
+		data-property='corpo'
+		data-id='<%= cabecalho._id %>'><%- cabecalho.corpo %>
+	</div>
+	
+<% } else { %>
+
+	<h3>Resultados da busca por: </h3>
+	<p><%= termos.join(', ') %></p>
+
+<% } %>

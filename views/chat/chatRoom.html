@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+	<head>
+		<title><%= brand %></title>
+		<link rel='stylesheet' href='/10tcl/css/Bootstrap/bootstrap.css' />
+		<link rel='stylesheet' href='/10tcl/css/app/crud/crud-base.css' />
+		<script src='/10tcl/js/jQuery/jquery-1.10.2.js'></script>
+		<script src='/10tcl/js/Bootstrap/bootstrap.js'></script>
+		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+
+		<script>
+			var socket = io()
+			  , author = "<%= user.name %>"
+
+	  		$.chat = { 
+	  			socket: io() 
+	  		  , addRoom: function( room ){
+	  		  		room.messages = []
+	  		  		$.chat.rooms[ room.name ] = room
+		  			$( '#chat-rooms tbody' ).append( 
+		  				'<tr>'+
+		  					'<td><a onclick="$.chat.openRoom(\''+room.name+'\');" >'+room.name+'</a></td>'+
+		  					'<td><span class="badge">0</span></td>'+
+		  				'</tr>'
+		  			)
+		  			$.chat.socket.emit( 'join', room )
+		  		}
+		  	  , addMessage: function( message ){ 
+		  	  		$.chat.rooms[ message.room ].messages.push( message )
+		  			if ( $.chat.room && $.chat.room.name === message.room ) {
+
+		  				var yourOwn = message.author === author ? 'your-own' : ''
+			  			  , lastAuthor = $( '.chat-message:last-child small' ).html()
+			  			  , sameAuthor = lastAuthor === message.author ? 'same-author' : ''
+
+			  			$( '#chat-messages' ).append( 
+			  				'<div class="chat-message '+yourOwn+' '+sameAuthor+'">'+
+								'<div><small>'+message.author+'</small></div>'+
+								'<div>'+message.text+'</div>'+
+							'</div>'
+			  			)
+		  			} else {
+
+		  				$( '#chat-rooms tr' ).each( function(){ 
+		  					if ( $( 'a', this ).html() === message.room ){
+			  					$( '.badge', this ).html( parseInt( $( '.badge', this ).html() ) + 1 )
+		  						$( this ).addClass( 'danger' )
+		  					}
+		  				})
+		  			}
+		  		}
+		  	  , removeRoom: function( room ){
+		  			
+		  		}
+		  	  , openRoom: function( roomName ){
+		  	  		$.chat.room = $.chat.rooms[ roomName ]
+		  	  		var template = $( '#chat-template' ).html()
+		  	  		  , room = _.clone( $.chat.rooms[ roomName ] )
+		  	  		  , prevMessage
+
+		  	  		if ( room.messages ){
+			  	  		room.messages.forEach( function( message ){
+			  	  			if ( prevMessage && prevMessage.author === message.author ) message.sameAuthor = 'same-author'
+			  	  			if ( author === message.author ) message.yourOwn = 'your-own'
+			  	  			prevMessage = message
+			  	  		})
+		  	  		}
+
+		  	  		$( '#chat-messages' ).html( Mustache.render( template, $.chat.room ) )
+		  	  		$( '#chat' ).addClass( 'chatting' )
+
+		  	  		$( '#chat-rooms tr' ).removeClass( 'active' )
+		  	  		$( '#chat-rooms tr' ).each( function(){ 
+	  					if ( $( 'a', this ).html() === roomName ){
+	  						$( '.badge', this ).html( 0 )
+	  						$( this ).removeClass( 'danger' )
+	  						$( this ).addClass( 'active' )
+	  					}
+	  				})
+		  		}
+		  	  , sendMessage: function(){
+		  	  		var message = {
+		  	  			author: author
+		  	  		  , room: $.chat.room.name
+		  	  		  , text: $( '#new-message-field' ).val()
+		  	  		}
+		  	  		socket.emit( 'message', message )
+		  	  		$( '#new-message-field' ).val( '' )
+		  		}
+	  		}
+	  		
+	  		$.chat.socket.emit( 'join room list' )
+	  		$.chat.socket.on( 'message', $.chat.addMessage )
+	  		$.chat.socket.on( 'add room', $.chat.addRoom )
+	  		$.chat.socket.on( 'remove room', $.chat.removeRoom )
+	  		$.chat.rooms = <%- rooms ? JSON.stringify( rooms ) : '{}' %>
+
+	  		for ( var roomName in $.chat.rooms ){	
+	  			$.chat.socket.emit( 'join', $.chat.rooms[ roomName ] )
+	  		}
+
+	  		$( document ).ready( function(){
+				var windowH    = $(window).height()
+				  , chatMessagesH = windowH - 140
+
+				$('#chat-messages').attr('style', 'height: '+chatMessagesH+'px;')
+			})
+
+		</script>
+	</head>
+	<body>
+		<div class='container'>
+			<% include ../../node_modules/10tcl/lib/view/components/topbar.html %>
+			<div class="row">
+				<div id="chat-rooms" class="col-md-6">
+					<table class='table'>
+						<thead>
+							<tr>
+								<th>Salas de Chat</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+<%	for ( var room in rooms ){ %>
+							<tr>
+								<td><a onclick="$.chat.openRoom('<%= room %>');" ><%= room %></a></td>
+								<td><span class="badge"><%= rooms[ room ].messages.length %></span></td>
+							</tr>
+<%	} %>
+						</tbody>
+					</table>
+				</div>
+				<div id="chat" class="col-md-6">
+					<div id="chat-messages"></div>
+					<textarea id="new-message-field"></textarea>
+					<a class="btn btn-link clickable" onclick="$.chat.sendMessage();">Enviar</a>
+				</div>
+			</div>
+		</div>
+		<script id='chat-template' type='text/html'>
+			
+{{#messages}}
+				<div class="chat-message {{sameAuthor}} {{yourOwn}}">
+					<div><small>{{author}}</small></div>
+					<div>{{text}}</div>
+				</div>
+{{/messages}}
+			
+		</script>
+
+		<style>
+			#chat {
+				height: 100%;
+				display: none;
+			}
+
+			#chat.chatting {
+				display: block;
+			}
+
+			.container {
+				height: 100%;
+			}
+
+			#chat-messages {
+				position: relative;
+				top: 0px;
+				bottom: 50px;
+				/*border: solid black 1px;*/
+			}
+
+			#chat-messages small { text-align: right; width: 100%; float: right; }
+
+			.chat-message { 
+				background-color: #66A3FF;
+				padding-right: 10px;
+				padding-left: 5px;
+				margin-top: 10px;
+				margin-right: 10px;
+			}
+			.chat-message.your-own { 
+				background-color: #80E6B2;
+				margin-left: 10px;
+				margin-right: 0px;
+			}
+			.same-author { border-top: dashed #EEEEEE 1px; }
+			.same-author small { display: none; }
+			.chat-message.same-author { margin-top: 0px; }
+			#new-message-field { height: 46px; width: 480px; }
+			#chat-send-link { height: 46px; width: 65px; }
+		</style>
+	</body>
+</html>

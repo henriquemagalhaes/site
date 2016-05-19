@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+	<head>
+		<title><%= titulo %></title>
+		<% include ../../components/head.html %>
+		<link rel="stylesheet" type="text/css" href="/css/page.css">
+	</head>
+	<body>
+		<div data-action='import' data-url='/components/siteTopbar.html'></div>
+		<div data-action='import' data-url='/components/banner.html'></div>
+		<div data-action='import' data-url='/components/newsTopbar.html'></div>
+
+		<div class="container">
+			
+			<div id='content-place'>
+				<div class="col-md-8">
+					<div id='cms-save-btn-place'></div>
+					<h1 class='editable' data-model='pagina' data-property='titulo' data-id='<%= _id %>'>
+						<%= titulo %>
+					</h1>
+
+					<p>Envie suas dúvidas, questionamentos, críticas e sugestões:</p>
+
+<% if ( assinante ){ %>
+		
+					<div class="rounded blue padded">
+						
+						<form role='form'>
+							
+							<div class='form-group' id='motivo-group'>
+								<label class='control-label' for="msg-motivo">Motivo</label>
+								<select class='form-control' type="text" name='msg-motivo' id='msg-motivo'>
+									<option>Selecione o motivo</option>
+									<option value='duvida' selected>Dúvida - Suporte</option>
+									<option value='sugestao'>Sugestão ou Crítica</option>
+									<option value='assinatura'>Assinatura</option>
+									<option value='news'>Newsletter</option>
+								</select>
+							</div>
+							<div class='form-group' id='mensagem-group'>
+								<label for="msg-corpo" class="control-label">Mensagem</label>
+								<textarea name="msg-corpo" id="msg-corpo" cols="30" rows="10" class="form-control"></textarea>
+							</div>
+							<a id='mensagem-save-btn' class="btn btn-primary">Enviar</a>
+							<div id="response"></div>
+						
+						</form>
+					</div>
+<script>
+	$('#mensagem-save-btn').click( function(){
+
+		var motivo = $('#msg-motivo').val()
+		  , corpo = $('#msg-corpo').val()
+
+		$.ajax({
+			url: '/suporte/mensagem',
+			type: 'POST',
+			data: { motivo: motivo, corpo: corpo },
+			success: function( res, status ){
+				$('#response').html('<h2>Obrigado!</h2><p>Responderemos sua mensagem pelo email cadastrado.</p>')
+			},
+			error: function( res ){
+				$('#response').html(
+					'<h2>Ops</h2><p>Não foi possível completar a requisição.</p>'
+				)
+				
+			}
+		})
+
+	})
+</script>
+
+<% } else { %>
+
+					<div data-action='import' data-url='/components/pleaseLogin.html'></div>
+
+<% } %>	
+
+					<div class='editable' data-model='pagina' data-property='corpo' data-id='<%= _id %>'>
+						<%- corpo %>
+					</div>
+
+				</div>
+				
+			</div>
+
+			<div id="search-place" class="col-md-9"></div>
+
+		</div>
+
+		<% include ../../components/siteFooter.html %> 
+		
+		<% include ../../cms/cmsScripts.html %>
+	</body>
+</html>

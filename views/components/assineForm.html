@@ -1,0 +1,163 @@
+<div class='padded blue rounded'>
+	<div class="spacing-15"></div>
+	<form role='form' class='form'>
+		<h3>Pedido de Assinatura</h3>
+		
+		<div class='form-group' id='opcaoDeAssinatura-group'>
+			<label class='control-label' for="opcaoDeAssinatura">Selecione o plano de assinatura *</label>
+			<select class='form-control' name='opcaoDeAssinatura' id='opcaoDeAssinatura'></select>
+		</div>
+		<div class='form-group' id='nome-group'>
+			<label class='control-label' for="nome">Nome *</label>
+			<input class='form-control' type="text" name='nome' id='nome'>
+		</div>
+		<div class='form-group' id='nomeAc-group'>
+			<label class='control-label' for="nomeAc">Envio A/C de *</label>
+			<input class='form-control' type='text' name='nomeAc' id='nomeAc'>
+		</div>
+		<div class='form-group' id='email-group'>
+			<label class='control-label' for="email">e-mail *</label>
+			<input class='form-control' type="email" name='email' id='email'>
+		</div>
+		<div class='form-group' id='cpfCnpj-group'>
+			<label class='control-label' for="cpfCnpj">CPF / CNPJ *</label>
+			<input class='form-control' type='text' name='cpfCnpj' id='cpfCnpj'>
+		</div>
+		<div class='form-group' id='pwdHash-group'>
+			<label class='control-label' for="pwdHash">Senha *</label>
+			<input class='form-control' type="password" name='pwdHash' placeholder='Senha' id='pwdHash'>
+			<div class="spacing-10"></div>
+			<input class='form-control' type="password" placeholder='Confirme a senha' id='pwdHashAgain'>
+		</div>
+		<div class='form-group' id='atividade-group'>
+			<label class='control-label' for="atividade">Ramo de atividade *</label>
+			<input class='form-control' type="text" name='atividade' id='atividade'>
+		</div>
+		<div class='form-group' id='caixaPostal-group'>
+			<label class='control-label' for="caixaPostal">Caixa Postal</label>
+			<input class='form-control' type="text" name='caixaPostal' id='caixaPostal'>
+		</div>
+		<div class='form-group' id='endereco-group'>
+			<label class='control-label' for="endereco">Endereço *</label>
+			<input class='form-control' type="text" name='endereco' id='endereco'>
+		</div>
+		<div class='form-group' id='cidade-group'>
+			<label class='control-label' for="cidade">Cidade *</label>
+			<input class='form-control' type="text" name='cidade' id='cidade'>
+		</div>
+		<div class='form-group' id='uf-group'>
+			<label class='control-label' for="uf">Estado *</label>
+			<select class='form-control' name='uf' id='uf'>
+				<option>Selecione o estado</option><option value='AC'>Acre</option><option value='AL'>Alagoas</option><option value='AP'>Amapá</option><option value='AM'>Amazonas</option><option value='BA'>Bahia</option><option value='CE'>Ceará</option><option value='DF'>Distrito Federal</option><option value='ES'>Espírito Santo</option><option value='GO'>Goiás</option><option value='MA'>Maranhão</option><option value='MT'>Mato Grosso</option><option value='MS'>Mato Grosso do Sul</option><option value='MG'>Minas Gerais</option><option value='PR'>Paraná</option><option value='PB'>Paraíba</option><option value='PA'>Pará</option><option value='PE'>Pernambuco</option><option value='PI'>Piauí</option><option value='RJ'>Rio de Janeiro</option><option value='RN'>Rio Grande do Norte</option><option value='RS' selected>Rio Grande do Sul</option><option value='RO'>Rondonia</option><option value='RR'>Roraima</option><option value='SC'>Santa Catarina</option><option value='SE'>Sergipe</option><option value='SP'>São Paulo</option><option value='TO'>Tocantins</option>
+			</select>
+		</div>
+		<div class='form-group' id='fone1-group'>
+			<label class='control-label' for="fone1">Telefone *</label>
+			<input class='form-control' type='tel' pattern='[\(]\d{2}[\)]\d{4}[\-]\d{4}' name='fone1' id='fone1'>
+		</div>
+		<div class="checkbox">
+			<label for="news">
+				<input name='news' id='news' type="checkbox" checked="checked">
+				Autorizo o Mensário Fiscal a enviar a newsletter e e-mails informativos para o endereço de e-mail cadastrado abaixo.
+			</label>
+		</div>
+		<div class="spacing-20"></div>
+
+		<h3>Forma de Pagamento</h3>
+		<div class='form-group' id='condicaoPagamento-group'>
+			<label class='control-label' for="condicaoPagamento">Selecione a condição de pagamento *</label>
+			<select class='form-control' name='condicaoPagamento' id='condicaoPagamento'>
+				<option>Pagamento Único</option>
+				<option>Pagamento Parcelado</option>
+			</select>
+		</div>
+		<div class='form-group' id='comentarioPagamento-group'>
+			<label class='control-label' for="comentarioPagamento">Comentário</label>
+			<input class='form-control' type='text' name='comentarioPagamento' id='comentarioPagamento'>
+		</div>
+
+		<h3>Como tomou conhecimento do Mensário Fiscal? *</h3>
+		<div class='form-group' id='canal-group'>
+			<input class='form-control' type='text' name='canal' id='canal'>
+		</div>
+
+
+		
+		<div class="form-group">
+			<div class="col-md-12">
+				<a id='save-btn' type="submit" class="pull-right btn btn-primary">Enviar</a>
+			</div>
+		</div>
+		<div id="response"></div>
+		<div class="spacing-15"></div>
+	</form>
+</div>
+<script type='text/javascript'>
+
+	$.ajax({
+		url: '/opcoesDeAssinatura',
+		success: function( html ){ $('#opcaoDeAssinatura').html( html ) }
+	})
+
+	$('#save-btn').click( function(){
+		var pessoa = {}
+		  , pwdHashAgain = $('#pwdHashAgain').val()
+
+		pessoa.nome = $('#nome').val()
+		pessoa.nomeAc = $('#nomeAc').val()
+		pessoa.email = $('#email').val()
+		pessoa.cpfCnpj = $('#cpfCnpj').val()
+		pessoa.pwdHash = $('#pwdHash').val()
+		pessoa.atividade = $('#atividade').val()
+		pessoa.caixaPostal = $('#caixaPostal').val()
+		pessoa.endereco = $('#endereco').val()
+		pessoa.cidade = $('#cidade').val()
+		pessoa.uf = $('#uf').val()
+		pessoa.fone1 = $('#fone1').val()
+		pessoa.opcaoDeAssinatura = $('#opcaoDeAssinatura').val()
+		pessoa.condicaoPagamento = $('#condicaoPagamento').val()
+		pessoa.comentarioPagamento = $('#comentarioPagamento').val()
+		pessoa.canal = $('#canal').val()
+		pessoa.news = $('#news').prop('checked')
+		
+		if (!pessoa.nome || !pessoa.nomeAc || !pessoa.email || !pessoa.cpfCnpj || !pessoa.pwdHash || !pessoa.atividade || !pessoa.endereco || !pessoa.cidade || !pessoa.uf || !pessoa.fone1 || !pessoa.opcaoDeAssinatura || !pessoa.condicaoPagamento || !pessoa.canal) {
+			alert( 'Favor informar todos os campos marcados como obrigatório (*).')
+			return
+		}
+
+		if ( pessoa.pwdHash !== pwdHashAgain ){
+			$('#response').html(
+				'<h2>Ops</h2><p>Informe o mesmo valor nos dois campos de senha.</p>'
+			)
+		} else {
+
+			$.ajax({
+				url: '/assinante',
+				type: 'POST',
+				data: pessoa,
+				success: function(){
+					$('#response').html(
+						'<h2>Obrigado!</h2><p>Nossa equipe entrará em contato para ativar sua conta.</p>'
+					)
+					alert( 'Nossa equipe entrará em contato para ativar sua conta.' )
+				},
+				error: function( errs ){
+					$('#response').html(
+						'<h2>Ops</h2><p>Não foi possível completar a requisição.</p>'
+					)
+					alert( 'Não foi possível completar a requisição.' )
+					var errors = errs.responseJSON
+					if ( errors ){
+						errors.forEach( function(err){
+							var message
+							if (err.messages) message = err.messages.join(', ')
+							if (err.message) message = err.message
+
+							$('#response').append('</p>Campo '+err.field+': '+message+'</p>')
+						})
+					}
+				}
+			})
+		}
+	})
+</script>

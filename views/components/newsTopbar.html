@@ -1,0 +1,89 @@
+<div id="news-topbar" class="section blue">
+	<div id="news-topbar-inner" class="container">
+		<div class="row">
+			
+			<div id='news-topbar-menu' class='col-md-9'>
+				
+				<nav>
+					<a class='news-menu-btn' data-menu='assuntos'>Assuntos</a>
+					<a class='news-menu-btn' data-menu='legislacao'>Legislação</a>
+					<a class='news-menu-btn' data-menu='obrigacoes'>Obrigações</a>
+					<a class='news-menu-btn' href='/tabela/52f37eae4addf78702000003'>Informes</a>
+					<a class='news-menu-btn' data-menu='tabelas'>Tabelas</a>
+					<a class='news-menu-btn' data-menu='downloads'>Download</a>
+				</nav>
+
+			</div>
+
+			<div id='search-field-place' class='input-group col-md-3'>
+				<input id='search-field' class='form-control' type='search'/>
+				<span class='input-group-addon'>
+					<i class='glyphicon glyphicon-search'></i>
+				</span>
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			<i class='glyphicon glyphicon-remove close-btn clicable pull-right'></i>
+
+			<div class="menu-content blue" data-menu="assuntos">
+				<div data-action='import' data-url='/components/general/menuAssuntos.html' data-nowait='true'></div>
+			</div>
+
+			<div class="menu-content blue" data-menu="legislacao">
+				<div data-action='import' data-url='/components/general/menuLegislacao.html' data-nowait='true'></div>
+			</div>
+			
+			<div class="menu-content blue" data-menu="downloads">
+				<div data-action='import' data-url='/components/general/menuDownload.html' data-nowait='true'></div>
+			</div>
+
+			<div class="menu-content blue" data-menu="tabelas">
+				<div class="col-md-6">
+					<h3>Tabelas Mensais</h3>
+					<div data-action='import' data-url='/components/tabelas.html?tipo=tabelasMensais' data-nowait='true'></div>
+				</div>
+				<div class="col-md-6">
+					<h3>Tabelas de Uso Frequente</h3>
+					<div data-action='import' data-url='/components/tabelas.html?tipo=tabelasDeUsoFrequente' data-nowait='true'></div>
+					
+					<h3>Outras Tabelas</h3>
+					<div data-action='import' data-url='/components/tabelas.html?tipo=outrasTabelas' data-nowait='true'></div>
+				</div>
+				<div>
+					<div class="spacing-25"></div>
+					<div class="pull-right">
+						<span>Pesquisar tabelas vigentes em:&nbsp;</span>
+						<input 
+							id='data-vigencia-tabelas' 
+							class='datepicker form-control' 
+							type='text' 
+							style='width:110px;' 
+							placeholder='dd/mm/yyyy' 
+						/>
+						<script>
+							$('.datepicker').datepicker({ dateFormat: 'dd/mm/yy' })
+						</script>
+					</div>
+				</div>
+			</div>
+
+			<div class="menu-content blue" data-menu="obrigacoes">
+				<div data-action='import' data-url='/components/general/obrigacoesHeader.html' data-nowait='true'></div>
+				<div data-action='import' 
+					data-url='/components/obrigacoes.html?mes=<%= new Date().getMonth() + 1 %>&ano=<%= new Date().getFullYear() %>' 
+					data-nowait='true'>
+				</div>
+			</div>
+
+
+		</div>
+
+	</div>
+</div>
+
+
+<link rel='stylesheet' href='/css/newsTopbar.css' />
+<script type='text/javascript' src='/js/newsTopbar.js'></script>

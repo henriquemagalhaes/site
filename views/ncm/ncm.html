@@ -1,0 +1,41 @@
+<div class="row">
+		
+	<div id="tree" class='col-md-7'>
+		
+		<ul class='animated'>
+	<% 	items.forEach( function( item ){ %>
+			<li class='tree-item animated' id='tree-item-<%= item.selector %>' >
+				<a onClick='$.view.loadChildrenOf("<%= item._id %>")' >--
+					<i class='glyphicon glyphicon-expand'></i>
+					<b><%= item._id %></b> - 
+					<%= item.desc %>
+				</a>
+			</li>
+	<% 	}) %>
+		</ul>
+
+	</div>
+
+	<div id="tree-detail" class="col-md-5">
+		
+	</div>
+
+</div>
+
+<script type='text/html' id='tree-list-template'>
+	<ul>
+	{{#items}}
+		<li class='tree-item' id='tree-item-{{selector}}' >
+			<a onClick='$.view.loadChildrenOf("{{_id}}")' >--
+				<i class='glyphicon glyphicon-{{icon}}' ></i>
+				<b>{{_id}}</b> - 
+				{{desc}}
+			</a>
+		</li>
+	{{/items}}
+	</ul>
+</script>
+
+<link rel="stylesheet" href="/css/otterTree.css">
+<script type='text/javascript' src='/js/otterTree.js'></script>
+<script type='text/javascript' src='/10tcl/js/Mustache/mustache.js'></script>

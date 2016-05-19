@@ -1,0 +1,24 @@
+<h3><%= currentMonth %></h3>
+<div>
+	<a onclick='$.view.loadObrigacoes("/components/obrigacoes.html?mes=<%= prevMonth %>&ano=<%= prevYear %>")'>Mes Anterior</a> -
+	<a onclick='$.view.loadObrigacoes("/components/obrigacoes.html?mes=<%= nextMonth %>&ano=<%= nextYear %>")'>Próximo Mes</a>
+</div>
+
+<div class="spacing-20"></div>
+<ul>
+<% obrigacoes.forEach( function( obrigacoesDoDia ){ %>
+	<li> <%= obrigacoesDoDia.data %>
+		<ul>
+<%		var obrs = obrigacoesDoDia.items.sortBy('titulo')  %>
+<% 		obrs.forEach( function( obr ){ %>
+			<li>
+				<a 
+					href="<%= obr.url %>"
+					title="<%= obr.resumo %>"><%= obr.titulo %>
+				</a>
+			</li>
+<% 		}) %>	
+		</ul>
+	</li>
+<% }) %>
+</ul>

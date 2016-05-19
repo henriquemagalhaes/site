@@ -1,0 +1,70 @@
+<div id="site-topbar" class="section">
+
+	<div class="container">
+		
+		<div class='inline'>
+			
+			<div id="site-top-logo">
+				<a href="/">
+					<img src="/img/logo.jpg" alt="Mensário Fiscal">
+				</a>
+			</div>
+
+			<div id="site-top-menu">
+
+				<nav>
+					<a href='/pagina/a_empresa'>A Empresa</a>
+					<a href='/pagina/assinatura'>Assinatura</a>
+					<a href='/pagina/ferramentas'>Ferramentas</a>
+	<% 	if ( assinante ){ console.log( assinante ); %>
+					<a href='/pagina/suporte'>Suporte</a>
+	<%		if ( assinante.admin ){ %>
+					<a onClick="$.chat.open()">Chat</a>
+	<% 		} %>
+	<% 	} else { %>
+					<a href='/pagina/contato'>Contato</a>
+	<% 	} %>
+					
+					<a href='/pagina/parceiros'>Parceiros</a>
+	<% 	if ( assinante ){ %>
+					<a href='/assinante/perfil'>Perfil</a>
+	<% 	} %>
+				</nav>
+	<% 	if ( !assinante ){ %>
+				<div class='login-form'>
+					<input 
+						id='site-topbar-id-field' 
+						class='form-control' 
+						type='text' 
+						placeholder='Usuário ou email' 
+						onchange='$.view.topLoginBtnClick()' >
+
+					<div class="input-group">
+						<input 
+							id='site-topbar-pwd-field' 
+							class='form-control' 
+							type='password' 
+							placeholder='Senha' 
+							onchange='$.view.topLoginBtnClick()'
+							required >
+      
+						<span class="input-group-btn">
+							<button 
+								id="site-topbar-login-btn" 
+								class="btn btn-primary" 
+								type="button" 
+								onclick="$.view.topLoginBtnClick()">Ok</button>
+						</span>
+					</div>
+				</div>
+	<% 	} %>
+			</div>
+		
+		</div>
+
+	</div>
+
+</div>
+
+<link rel='stylesheet' href='/css/siteTopbar.css' />
+<script type='text/javascript' src='/js/siteTopbar.js'></script>

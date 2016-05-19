@@ -1,0 +1,9 @@
+{
+  "author": "fernandobbecker",
+  "name": "mensariofiscal",
+  "description": "Site do Grande Mensário Fiscal",
+  "version": "0.0.1",
+  "private": true,
+  "homepage": "http://mensariofiscal.com.br",
+  "main": "app.js"
+}

@@ -1,0 +1,47 @@
+<% 	if ( banners.length > 0 ){ %>
+	
+<div id="banner-bar" class="section">
+	
+		<div id='banner-carousel' class='carousel slide'>
+			<!-- Indicators -->
+			<ol class='carousel-indicators'>
+<% 		banners.forEach( function( banner, i ){ %>
+				<li data-target='#banner-carousel' data-slide-to='<%= i %>'></li>
+<% 		}) %>
+			</ol>
+
+			<!-- Wrapper for slides -->
+			<div class='carousel-inner'>
+<% 		banners.forEach( function( banner ){ %>
+				<div class='item'>
+					<a href='<%= banner.targetURL %>'>
+						<% if ( banner.descricao ){ %>
+						<div 
+							class="<%= banner.cor ? banner.cor : 'dark' %> <%= banner.horizontal ? banner.horizontal : 'left' %> <%= banner.vertical ? banner.vertical : 'top' %> rounded padded opaque pannel"
+						>
+							<%- banner.descricao %>
+						</div>
+						<% } %>
+						<img src='<%= banner.imagem %>' alt='<%= banner.nome %>'>
+					</a>
+				</div>
+<% 		}) %>
+			</div>
+			<!-- Controls -->
+			<a class='left carousel-control' href='#banner-carousel' data-slide='prev'>
+				<span class='glyphicon glyphicon-chevron-left'></span>
+			</a>
+			<a class='right carousel-control' href='#banner-carousel' data-slide='next'>
+				<span class='glyphicon glyphicon-chevron-right'></span>
+			</a>
+		</div>
+		
+</div>
+
+<link rel='stylesheet' href='/css/banner.css' />
+<script type="text/javascript">
+	$('.carousel-inner .item:first-child').addClass('active')
+	$('.carousel-indicators li:first-child').addClass('active')
+</script>
+
+<% 	} %>

@@ -1,0 +1,13 @@
+#content-place td {
+	border: 1px solid gray;
+}
+
+#content-place tr:hover {
+	background-color: #fff;
+}
+
+#content-place tr:first-child {
+	background-color: #5980AB;
+	color: #fff;
+	border: 0px;
+}

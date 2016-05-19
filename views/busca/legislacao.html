@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mensário Fiscal</title>
+		<% include ../components/head.html %>
+		
+		<link rel='stylesheet' href='/css/otterCalendar.css' />
+		<link rel='stylesheet' href='/css/searchResults.css' />
+	</head>
+	<body>
+
+		<div data-action='import' data-url='/components/siteTopbar.html'></div>
+		<div data-action='import' data-url='/components/banner.html'></div>
+		<div data-action='import' data-url='/components/newsTopbar.html'></div>
+
+		<div class="container">
+			<div class="spacing-25"></div>
+
+			<div data-action='import' data-url='/busca/cabecalho.html?<%= cabecalhoPars.join("&") %>'></div>
+
+			<small>página <%= page + 1 %></small>
+
+<% noticias.forEach( function( noticia ){ %>
+
+			<div class='row'>
+				<div class='content col-md-9'>
+					<p class='date'><%= Date.create(noticia.dataPublicacao).format('{dd}/{MM}/{yyyy}') %></p>
+					<a class='search' href='/noticia/<%= noticia._id %>'>
+						<h2>
+							<%= noticia.tipoDeAto ? noticia.tipoDeAto : '' %> 
+							<%= noticia.complemento ? noticia.complemento : '' %> 
+							<%= noticia.codigoDoAto ? ' nº '+noticia.codigoDoAto : '' %>
+						</h2>
+					</a>
+					<h3><%= noticia.titulo %></h3>
+				</div>
+			</div>
+
+<% }) %>
+
+			<div class="row">
+				<div class="col-md-9">
+					
+<% if( page > 0 ){ %>
+					<div id='list-footer' class='pull-left'>
+						<a href='<%= url + (page-1) %>'>< Página anterior</a>
+					</div>
+<% } %>
+
+					<div id='list-footer' class='pull-right'>
+						<a href='<%= url + (page+1) %>'>Próxima página ></a>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+
+		<% include ../components/siteFooter.html %>
+		<% include ../cms/cmsScripts.html %>
+	</body>
+</html>

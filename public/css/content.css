@@ -1,0 +1,25 @@
+#more-content ul {
+	list-style-type: none;
+	padding-left: 15px;
+}
+#more-content li {
+	padding-bottom: 10px;
+}
+
+.tag {
+  font-size: 12px;
+  font-weight: normal;
+  padding-top: 4px;
+}
+.tag i {
+  margin-left: 5px;
+  color: white;
+}
+
+#save-btn-place{ height: 50px;}
+#save-btn { float: right; }
+
+#content-place .date { display: inline; margin-right: 20px; }
+#content-place .title { margin-top: 5px;}
+#content-place .short-text { font-size: 17px; padding-bottom: 10px; }
+#content-place .body p { text-align: justify; }

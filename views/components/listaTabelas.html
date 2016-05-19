@@ -1,0 +1,9 @@
+<ul>
+<% tabelas.forEach( function( tabela ){ %>
+		
+	<li>
+		<a href="/tabela/<%= tabela._id %>"><%= tabela.titulo %></a>
+	</li>
+
+<% }) %>
+</ul>
