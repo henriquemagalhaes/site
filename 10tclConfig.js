@@ -19,7 +19,7 @@ module.exports = {
         srv: 'ds041218.mongolab.com:41218',
         db:  'mensario',
         par: 'auto_reconnect',
-        connectionString: 'mongodb://menfis:VinnieColaiuta@ds041034-a0.mongolab.com:41034/mensario_2_6_11?replicaSet=rs-ds041034'
+        connectionString: 'mongodb://menfis:VinnieColaiuta@ds041034-a1.mongolab.com:41034/mensario_2_6_11?replicaSet=rs-ds041034'
     },
     s3: {
         awsKey: 'AKIAIIF37NJW7HCRAUQQ',
